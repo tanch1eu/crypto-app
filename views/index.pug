@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  h1 Welcome to CRYPTOSIS
+  div
+    table
+      tr
+        th.coinList Coin Slug
+        th.coinList Name - Symbol
+        th Dominance Cap (%market)
+        th Coin Price
+        th Now
+        th Open
+        th High 
+        th Low 
+        th Close
+        th Volume
+      each item in Indexes  
+        tr
+          td.coinList 
+            Button.getCoin #{item.slug}
+          td.coinList #{item.name} - #{item.symbol}
+          td #{item.marketCap}% - #{item.cap}USD
+          td $#{item.price}USD
+          if item.change < 0
+            td.red ↓#{item.change}%
+          else if item.change >= 0
+            td.green ↑#{item.change}%
+          else 
+            td N.A
+          td #{item.open}
+          td #{item.high}
+          td #{item.low}
+          td #{item.close}
+          td #{item.volume}
+  h3 Select a coin slug to see its market data.
+  div.canvas
+    canvas(id="plotChart" width="800" height="400")
+    //- Button.clearChart Clear Canvas
+    script(src="http://cdn.jsdelivr.net/npm/chart.js")
+    script(src='/javascripts/coinTrend.js')
+  
+
